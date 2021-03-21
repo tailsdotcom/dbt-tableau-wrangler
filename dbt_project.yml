@@ -1,0 +1,13 @@
+name: 'dbt_tableau_wrangler'
+version: '1.0.0'
+config-version: 2
+
+
+models:
+  dbt_tableau_wrangler:
+    +schema: default_dbt_tableau_wrangler_schema
+    +materialized: table
+    incremental:
+      +materialized: incremental
+    staging:
+      +materialized: view # The staging tables cannot be ephemeral

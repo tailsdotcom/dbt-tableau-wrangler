@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+
+  - name: tableau_wrangler
+    database: "{{ var('tableau_wrangler_database', target.database) }}"
+    schema: "{{ var('tableau_wrangler_schema', 'tableau_wrangler') }}"
+    tables:
+      - name: workbook
+      - name: workbook_connection
+      - name: workbook_datasource
+      - name: workbook_relation
+      - name: workbook_table_reference
+      - name: workbook_ids
