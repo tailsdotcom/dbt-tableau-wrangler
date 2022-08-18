@@ -1,5 +1,5 @@
 name: 'dbt_tableau_wrangler'
-version: '1.0.0'
+version: '0.2.0'
 config-version: 2
 
 

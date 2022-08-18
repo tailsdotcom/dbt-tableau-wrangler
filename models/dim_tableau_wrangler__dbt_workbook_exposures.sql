@@ -44,31 +44,31 @@ dbt_nodes as (
 
     -- dbt models
     select
-        manifest_model_id as manifest_node_id,
+        model_execution_id as manifest_node_id,
         name as node_name,
         NULL::string as source_name,
     {%- if var("dbt_override_db", False) %}
-        '{{ var("dbt_override_db") }}' || '.' || model_schema || '.' || name as relation,
+        '{{ var("dbt_override_db") }}' || '.' || schema || '.' || name as relation,
     {% else %}
-        model_database || '.' || model_schema || '.' || name as relation,
+        model_database || '.' || schema || '.' || name as relation,
     {% endif -%}
         'model' as node_type
     from dbt_models
     where
-        artifact_generated_at = (select max(artifact_generated_at) from dbt_models)
+        run_started_at = (select max(run_started_at) from dbt_models)
 
     union all
 
     -- dbt sources
     select
-        manifest_source_id as manifest_node_id,
+        source_execution_id as manifest_node_id,
         name as node_name,
         source_name,
-        relation_name as relation,
+        database || '.' || schema || '.' || name as relation,
         'source' as node_type
     from dbt_sources
     where
-        artifact_generated_at = (select max(artifact_generated_at) from dbt_sources)
+        run_started_at = (select max(run_started_at) from dbt_sources)
 
 ),
 
