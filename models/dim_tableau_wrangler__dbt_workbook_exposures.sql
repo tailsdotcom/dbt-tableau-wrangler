@@ -55,7 +55,7 @@ dbt_nodes as (
         'model' as node_type
     from dbt_models
     where
-        artifact_generated_at = (select max(artifact_generated_at) from dbt_models)
+        run_started_at = (select max(run_started_at) from dbt_models)
 
     union all
 
@@ -68,7 +68,7 @@ dbt_nodes as (
         'source' as node_type
     from dbt_sources
     where
-        artifact_generated_at = (select max(artifact_generated_at) from dbt_sources)
+        run_started_at = (select max(run_started_at) from dbt_sources)
 
 ),
 
