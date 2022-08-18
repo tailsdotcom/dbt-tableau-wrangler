@@ -48,9 +48,9 @@ dbt_nodes as (
         name as node_name,
         NULL::string as source_name,
     {%- if var("dbt_override_db", False) %}
-        '{{ var("dbt_override_db") }}' || '.' || model_schema || '.' || name as relation,
+        '{{ var("dbt_override_db") }}' || '.' || schema || '.' || name as relation,
     {% else %}
-        model_database || '.' || model_schema || '.' || name as relation,
+        model_database || '.' || schema || '.' || name as relation,
     {% endif -%}
         'model' as node_type
     from dbt_models
