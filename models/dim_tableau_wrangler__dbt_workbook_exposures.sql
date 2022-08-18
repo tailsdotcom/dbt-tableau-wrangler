@@ -44,7 +44,7 @@ dbt_nodes as (
 
     -- dbt models
     select
-        manifest_model_id as manifest_node_id,
+        model_execution_id as manifest_node_id,
         name as node_name,
         NULL::string as source_name,
     {%- if var("dbt_override_db", False) %}
@@ -61,7 +61,7 @@ dbt_nodes as (
 
     -- dbt sources
     select
-        manifest_source_id as manifest_node_id,
+        source_execution_id as manifest_node_id,
         name as node_name,
         source_name,
         relation_name as relation,
