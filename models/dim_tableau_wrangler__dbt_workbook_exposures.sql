@@ -64,7 +64,7 @@ dbt_nodes as (
         source_execution_id as manifest_node_id,
         name as node_name,
         source_name,
-        relation_name as relation,
+        database || '.' || schema || '.' || name as relation,
         'source' as node_type
     from dbt_sources
     where
